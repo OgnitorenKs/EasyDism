@@ -98,7 +98,7 @@ Allows you to install drivers to indexed images. You can add the drivers you wan
 </details>
 
 <details>
-<B><summary> 8 - Load regedit records</B></summary>
+<B><summary> 8 - Load regedit</B></summary>
 
 It allows you to integrate regedit records into the image. Put the '.reg' files you want to install into the 'Regedit' folder in the installed directory of EasyDism. You can then run this section and start the integration process. You will not find such advanced regedit registry integration in any other application.
 
