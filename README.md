@@ -12,7 +12,7 @@ All rights of the work belong to Hüseyin UZUNYAYLA. It is forbidden to develop,
 # EASYDISM
 
 ![Tool0](https://raw.githubusercontent.com/OgnitorenKs/EasyDism/main/.github/EN-SS/0.png)
-![Tool0](https://raw.githubusercontent.com/OgnitorenKs/EasyDism/main/.github/TR-SS/6.4.png)
+![Tool0](https://raw.githubusercontent.com/OgnitorenKs/EasyDism/main/.github/EN-SS/6.4.png)
 
 - EasyDism works on x64 architectures of Windows 10 - 11 versions.
 - Windows screen scaling setting may break Toolbox's window setting.
