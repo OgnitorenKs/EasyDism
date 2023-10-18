@@ -111,7 +111,18 @@ Mount edilmiş imaj içine güncelleme yükleme imkanı sağlar. Yüklemek isted
 </details>
 
 <details>
-<B><summary> 10 - İmaj topla [UnMount]</B></summary>
+<B><summary> 10 - Format sonrası ilk açılışa batch script ekle</B></summary>
+
+Mount edilmiş imaj içine sistem ilk açılışında çalışacak komut dosyası eklenir. Bu komut dosyası içine ilk açılışta çalışmasını istediğiniz script dosyalarını atabilirsiniz.
+- Bu bölüme .bat .cmd .vbs .ps1 script dosyalarını atabilirsiniz. EasyDism yüklü olduğu dizini açıp ".Script-AfterSetup" klasörü içerisine dosyaları atın.
+- Katılımsız program ekleyip ilk açılışta yükleme işlemini yapabilirsiniz. EasyDism yüklü olduğu dizini açıp ".Script-AfterSetup" klasörü içerisine dosyaları atın. Yalnızca katılımsız programları ekleyin.
+- İlk açılışta uygulanması gereken .reg dosyalarını ekleyebilirsiniz. EasyDism yüklü olduğu dizini açıp ".Script-AfterSetup" klasörü içerisine dosyaları atın.
+- Masaüstüne dosya ekleyebilirsiniz. EasyDism yüklü olduğu dizini açıp ".Desktop-AfterSetup" klasörü içerisine dosyaları atın. Boş klasörleri eklemeyecektir. Masaüstüne "EasyDism_OgnitorenKs" klasörü olarak ekleme yapacaktır.
+
+</details>
+
+<details>
+<B><summary> 11 - İmaj topla [UnMount]</B></summary>
 
 Mount edilmiş sistemi toplayıp install.wim haline getirir. Mount edilmiş imaj üzerinde yaptığınız düzenlemelerden sonra toplama işlemi sonrası install.wim'in boyutu düşeceğine artabiliyor. Bunun sebebi kaldırdığımız bileşenlerin çöp dosya olarak kalmasıdır. Bu bölüm mount edilen imajı toplarken indexleri önce ayrı dizine çıkarıp yeniden oluşturur. Böylece çöp dosyalar silindiği için boyutu da düşürecektir.
 
@@ -124,7 +135,7 @@ Mount edilmiş sistemi toplayıp install.wim haline getirir. Mount edilmiş imaj
 </details>
 
 <details>
-<B><summary> 11 - ISO hazırla</B></summary>
+<B><summary> 12 - ISO hazırla</B></summary>
 
 UEFI ve Legacy BIOS kurulum için uygun ISO hazırlamanıza imkan tanır. ISO hazırlandıktan sonra oluşturulduğu klasör açılacaktır. Daha önceden yaptığınız işlemlerde unuttuğunuz aynı isimde ISO varsa öncesinde uyarı verecektir.
 
@@ -134,7 +145,7 @@ UEFI ve Legacy BIOS kurulum için uygun ISO hazırlamanıza imkan tanır. ISO ha
 </details>
 
 <details>
-<B><summary> 12 - Mount yol tanımla</B></summary>
+<B><summary> 13 - Mount yol tanımla</B></summary>
 
 Bu bölümde daha önceden mount ettiğiniz bir imaj varsa onu seçip tanımladıktan sonra EasyDism üzerinde işlem yapmanıza imkan tanır. Tanımlamadan sonra ana menüde imaj hakkında bilgiler yazılacaktır.
 
@@ -145,7 +156,7 @@ Bu bölümde daha önceden mount ettiğiniz bir imaj varsa onu seçip tanımlad�
 </details>
 
 <details>
-<B><summary> 13 - EasyDism dil değiştirme</B></summary>
+<B><summary> 14 - EasyDism dil değiştirme</B></summary>
 
 Açılışta varsayılan sistem diline göre otomatik seçim yapılmaktadır. Değiştirmek isterseniz bu bölümü kullanabilirsiniz.
 

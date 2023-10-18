@@ -11,10 +11,11 @@ Menu_6_>Mount Image>
 Menu_7_>Install driver>
 Menu_8_>Load regedit>
 Menu_9_>Install update>
-Menu_10_>UnMount Image>
-Menu_11_>Prepare ISO>
-Menu_12_>Mount define path>
-Menu_13_>EasyDism change language>
+Menu_10_>Add batch script to first boot after format>
+Menu_11_>UnMount Image>
+Menu_12_>Prepare ISO>
+Menu_13_>Mount define path>
+Menu_14_>EasyDism change language>
 ::███████████████████████████████████████████████████████████████████
 D0001>Process>
 D0002>Multiprocess>
@@ -53,6 +54,8 @@ Y0023>Checking loaded images. You are transferred to the menu.>
 Y0024>optimizing install.wim>
 Y0025>In eject position>file available>
 Y0026>Loading regedit records>
+Y0027>Configuring initial boot processes after format>
+Y0028>Image is being cleaned up>
 ::███████████████████████████████████████████████████████████████████
 Error_0_>Warning>
 Error_1_>ERROR! Turkish character detected in folder/file path>
@@ -67,3 +70,9 @@ Error_9_>ERROR! Mount folder full>
 Error_10_>ERROR! Mount road is faulty>
 Error_11_>ERROR! You cannot work with the install.wim file>
 ::███████████████████████████████████████████████████████████████████
+ZZ_0_>Configuring post-installation processes>
+ZZ_1_>Extracting desktop files>
+ZZ_2_>Running scripts>awaiting file>
+ZZ_3_>Loading regedit records>loading regedit file>
+ZZ_4_>Programs>Installing>
+ZZ_5_>Operations complete. System restarting.>

@@ -11,10 +11,11 @@ Menu_6_>İmaj yükle [Mount]>
 Menu_7_>Sürücü yükle>
 Menu_8_>Regedit kayıtlarını yükle>
 Menu_9_>Güncelleme yükle>
-Menu_10_>İmaj topla [UnMount]>
-Menu_11_>ISO hazırla>
-Menu_12_>Mount yol tanımla>
-Menu_13_>EasyDism dil değiştirme>
+Menu_10_>Format sonrası ilk açılışa batch script ekle>
+Menu_11_>İmaj topla [UnMount]>
+Menu_12_>ISO hazırla>
+Menu_13_>Mount yol tanımla>
+Menu_14_>EasyDism dil değiştirme>
 ::███████████████████████████████████████████████████████████████████
 D0001>İşlem>
 D0002>Çoklu İşlem>
@@ -53,6 +54,8 @@ Y0023>Yüklü imajlar kontrol ediliyor. Menüye aktarılıyorsunuz.>
 Y0024>install.wim optimize ediliyor>
 Y0025>Çıkarma konumunda>dosyası mevcut>
 Y0026>Regedit kayıtları yükleniyor>
+Y0027>Format sonrası ilk açılış işlemleri yapılandırılıyor>
+Y0028>Güncelleme artıkları temizleniyor>
 ::███████████████████████████████████████████████████████████████████
 Error_0_>UYARI>
 Error_1_>HATA! Klasör/Dosya yolunda Türkçe karakter tespit edildi>
@@ -67,3 +70,9 @@ Error_9_>HATA! Mount klasörü dolu>
 Error_10_>HATA! Mount yolu hatalı>
 Error_11_>HATA! install.wim dosyasıyla işlem yapamazsınız>
 ::███████████████████████████████████████████████████████████████████
+ZZ_0_>Kurulum sonrası işlemler yapılandırılıyor>
+ZZ_1_>Masaüstü dosyaları çıkartılıyor>
+ZZ_2_>Scriptler çalıştırılıyor>dosyası bekleniyor>
+ZZ_3_>Regedit kayıtları yükleniyor>regedit dosyası yükleniyor>
+ZZ_4_>Programlar>yükleniyor>
+ZZ_5_>İşlemler tamamlandı. Sistem yeniden başlatılıyor.>

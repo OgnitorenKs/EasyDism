@@ -112,7 +112,19 @@ It allows you to install updates into the mounted image. Put the update files yo
 </details>
 
 <details>
-<B><summary> 10 - Mount Image [UnMount]</B></summary>
+<B><summary> 10 - Format sonrası ilk açılışa batch script ekle</B></summary>
+
+A script file is added to the mounted image that will run on the first boot of the system. In this script file you can add the script files you want to run on first boot.
+- You can add .bat .cmd .cmd .vbs .vbs .ps1 script files to this section. Open the directory where EasyDism is installed and put the files in the ".Script-AfterSetup" folder.
+- You can add an unattended program and install it on first boot. Open the directory where EasyDism is installed and put the files in the ".Script-AfterSetup" folder. Add only unattended programs.
+- You can add .reg files that need to be applied on first boot. Open the directory where EasyDism is installed and put the files in the ".Script-AfterSetup" folder.
+- You can add files to the desktop. Open the directory where EasyDism is installed and put the files in the ".Desktop-AfterSetup" folder. It will not add empty folders. It will add to the desktop as "EasyDism_OgnitorenKs" folder.
+
+</details>
+
+
+<details>
+<B><summary> 11 - Mount Image [UnMount]</B></summary>
 
 It collects the mounted system and turns it into install.wim. After you make edits to the mounted image, the size of install.wim may increase instead of decreasing. This is because the components we removed remain as garbage files. When this section collects the mounted image, it first extracts the indexes to a separate directory and then rebuilds them. This will reduce the size as the junk files are deleted.
 
@@ -125,7 +137,7 @@ It collects the mounted system and turns it into install.wim. After you make edi
 </details>
 
 <details>
-<B><summary> 11 - Prepare ISO</B></summary>
+<B><summary> 12 - Prepare ISO</B></summary>
 
 It allows you to prepare a suitable ISO for UEFI and Legacy BIOS installation. After the ISO is prepared, the folder where it was created will open. If there is an ISO with the same name that you have forgotten in your previous operations, it will warn you beforehand.
 
@@ -135,7 +147,7 @@ It allows you to prepare a suitable ISO for UEFI and Legacy BIOS installation. A
 </details>
 
 <details>
-<B><summary> 12 - Define mount path</B></summary>
+<B><summary> 13 - Define mount path</B></summary>
 
 In this section, if you have an image that you have previously mounted, you can select and define it and then you can operate on EasyDism. After the definition, the main menu will display information about the image.
 
@@ -146,7 +158,7 @@ In this section, if you have an image that you have previously mounted, you can 
 </details>
 
 <details>
-<B><summary> 13 - EasyDism change language</B></summary>
+<B><summary> 14 - EasyDism change language</B></summary>
 
 At startup, the default system language is automatically selected. You can use this section if you want to change it.
 
