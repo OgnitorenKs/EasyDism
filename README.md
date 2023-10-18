@@ -112,7 +112,7 @@ It allows you to install updates into the mounted image. Put the update files yo
 </details>
 
 <details>
-<B><summary> 10 - Format sonrası ilk açılışa batch script ekle</B></summary>
+<B><summary> 10 - Add batch script to first boot after format</B></summary>
 
 A script file is added to the mounted image that will run on the first boot of the system. In this script file you can add the script files you want to run on first boot.
 - You can add .bat .cmd .cmd .vbs .vbs .ps1 script files to this section. Open the directory where EasyDism is installed and put the files in the ".Script-AfterSetup" folder.
