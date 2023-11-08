@@ -65,7 +65,7 @@ Call :Error_Character "%L%"
 	if %Error% EQU 2 (Call :LA 2 Y0001&echo.&echo %R%[32m !LA2! %R%[0m&Call :TO 3&exit)
 	
 :: -------------------------------------------------------------
-FOR %%a in (Regedit Output Driver Update Bin\Logs) do (
+FOR %%a in (Regedit Output Driver Update Bin\Logs .Script-AfterSetup .Desktop-AfterSetup) do (
 	MD "%L%\%%a" > NUL 2>&1
 )
 
@@ -543,19 +543,34 @@ goto :eof
 :: Dism bazı durumlarda hata verip kapanabiliyor. Bu tarz bir durumda Powershell üzerinden toplama işlemi yapması için önlem aldım.
 Call :RegeditCollect
 Call :Mount_Reader
-Call :LA 2 Y0018&cls&echo.&echo %R%[92m !LA2! %R%[0m
-Dism /Unmount-Image /MountDir:%Mount% /commit
+Call :LA 2 Y0018&cls&echo.&echo %R%[92m !LA2! %R%[0m&echo.
+Call :Menu_Reader
+Dism /Unmount-Image /MountDir:"%Mount%" /commit
 	if !errorlevel! NEQ 0 (cls&Call :LA 2 Y0019&echo %R%[31m !LA2! %R%[0m
 						   Call :Powershell "Dismount-WindowsImage -Path '%Mount%' -Save")
 echo %MainWim% | Findstr /i "boot.wim" > NUL 2>&1
 	if %errorlevel% EQU 0 (goto :eof)
-Call :Mount_Check2
-	if %Hata% EQU 1 (Call :LA 2 Y0024&cls&echo.&echo %R%[32m !LA2! %R%[0m
-					 FOR /F "tokens=3" %%a in ('Dism /Get-WimInfo /WimFile:%MainWim% ^| Find "Index"') do (
-						Dism /Export-Image /SourceImageFile:%MainWim% /SourceIndex:%%a /DestinationImageFile:%WimFile%\sources\newinstall.wim /Compress:max /CheckIntegrity)
-					 DEL /F /Q /A "%MainWim%" > NUL 2>&1
-					 Rename "%WimFile%\sources\newinstall.wim" "install.wim" > NUL 2>&1
+:: install.wim optimizasyonu opsiyonel ayarı
+set Settings1=0
+FOR /F "delims=> tokens=2" %%g in ('Findstr /i "Wim_Optimizasyon" %L%\Settings.ini') do (set Settings1=%%g)
+	if !Settings1! EQU 0 (Call :Mount_Check2
+						  if %Hata% EQU 1 (Call :LA 2 Y0024&cls&echo.&echo %R%[32m !LA2! %R%[0m
+										   FOR /F "tokens=3" %%a in ('Dism /Get-WimInfo /WimFile:%MainWim% ^| Find "Index"') do (
+											 Dism /Export-Image /SourceImageFile:%MainWim% /SourceIndex:%%a /DestinationImageFile:"%WimFile%\sources\newinstall.wim" /Compress:max /CheckIntegrity)
+										   DEL /F /Q /A "%MainWim%" > NUL 2>&1
+										   Rename "%WimFile%\sources\newinstall.wim" "install.wim" > NUL 2>&1
+										  )
 )
+:: Unmount sonrası ESD sıkıştırma opsiyonel işlemi
+set Settings1=1
+FOR /F "delims=> tokens=2" %%g in ('Findstr /i "UnMount_ESD" %L%\Settings.ini') do (set Settings1=%%g)
+	if !Settings1! EQU 0 (Call :LA 2 Y0029&echo.&echo %R%[32m !LA2! %R%[0m
+						  FOR /F "tokens=3" %%a in ('Dism /Get-WimInfo /WimFile:%MainWim% ^| Find "Index"') do (
+							Dism /Export-Image /SourceImageFile:%MainWim% /SourceIndex:%%a /DestinationImageFile:"%WimFile%\sources\install.esd" /Compress:Recovery /CheckIntegrity)
+						  DEL /F /Q /A "%MainWim%" > NUL 2>&1
+)
+set Settings1=
+set Hata=
 goto :eof
 
 :: -------------------------------------------------------------
@@ -624,39 +639,49 @@ goto :eof
 :Mount_Reader
 mode con cols=130 lines=40
 set Mount_Road=GO
+:: Eski bilgi dosyası silinir.
 DEL /F /Q /A "%L%\Bin\Logs\wiminfo.txt" > NUL 2>&1
+:: Dism ile yüklü mount bilgileri alınır
 Dism /Get-Mountedwiminfo > %L%\Bin\Logs\MountInfo.txt
+:: Mount yolları .txt içine kayıt edilir. Disk harfini almaz bu bölüm.
 set Count=0
-FOR /F "delims=':' tokens=3" %%a in ('Find "Mount Dir" %L%\Bin\Logs\MountInfo.txt 2^>NUL') do (
-	FOR /F "skip=2 delims=':' tokens=2" %%b in ('Find "Mount Dir" %L%\Bin\Logs\MountInfo.txt 2^>NUL') do (
-		echo %%b | Findstr /i "?" > NUL 2>&1
-			if !errorlevel! EQU 0 (FOR /F "delims='\\?\' tokens=2" %%c in ('echo %%b ^>NUL') do (set /a Count+=1
-																								 set C=%%c
-																								 set C=!C:~1!
-																								 echo =Mount_!Count!_^>!C!:%%a^> >> %L%\Bin\Logs\wiminfo.txt
-								  ))
-			if !errorlevel! NEQ 0 (set /a Count+=1
-								   set B=%%b
-								   set B=!B:~1!
-								   echo =Mount_!Count!_^>!B!:%%a^> >> %L%\Bin\Logs\wiminfo.txt
-								  )
-	)
+FOR /F "delims=':' tokens=3" %%a in ('Find "Mount Dir" %L%\Bin\Logs\MountInfo.txt 2^>NUL') do (set /a Count+=1
+																							   echo =Mount_!Count!_:%%a^> >> %L%\Bin\Logs\wiminfo.txt
+)
+:: Mount yolunun disk harfi alınır. Parçalar halinde alınmasını nedeni Dism'in karmaşık ifadeler eklemesidir.
+set Count=0
+FOR /F "skip=2 delims=':' tokens=2" %%a in ('Find "Mount Dir" %L%\Bin\Logs\MountInfo.txt 2^>NUL') do (
+	echo %%a | Findstr /i "?" > NUL 2>&1
+		if !errorlevel! EQU 0 (FOR /F "delims='\\?\' tokens=2" %%b in ('echo %%a') do (set /a Count+=1
+																					   set B=%%b
+																					   set B=!B: =!
+																					   Call :Powershell "(Get-Content '%L%\Bin\Logs\wiminfo.txt') | ForEach-Object { $_ -replace '=Mount_!Count!_:', '=Mount_!Count!_>!B!:' } | Set-Content '%L%\Bin\Logs\wiminfo.txt'")
+							  )
+		if !errorlevel! NEQ 0 (set /a Count+=1
+							   set B=%%a
+							   set B=!B: =!
+							   Call :Powershell "(Get-Content '%L%\Bin\Logs\wiminfo.txt') | ForEach-Object { $_ -replace '=Mount_!Count!_:', '=Mount_!Count!_>!B!:' } | Set-Content '%L%\Bin\Logs\wiminfo.txt'"
+							  )
+							  
 )
 set Count=0
-FOR /F "delims=':' tokens=3" %%a in ('Find "Image File" %L%\Bin\Logs\MountInfo.txt 2^>NUL') do (
-	FOR /F "skip=2 delims=':' tokens=2" %%b in ('Find "Image File" %L%\Bin\Logs\MountInfo.txt 2^>NUL') do (
-		echo %%b | Findstr /i "?" > NUL 2>&1
-			if !errorlevel! EQU 0 (FOR /F "delims='\\?\' tokens=2" %%c in ('echo %%b ^>NUL') do (set /a Count+=1
-																								 set C=%%c
-																								 set C=!C:~1!
-																								 echo =Wim_!Count!_^>!C!:%%a^> >> %L%\Bin\Logs\wiminfo.txt
-								  ))
-			if !errorlevel! NEQ 0 (set /a Count+=1
-								   set B=%%b
-								   set B=!B:~1!
-								   echo =Wim_!Count!_^>!B!:%%a^> >> %L%\Bin\Logs\wiminfo.txt
-								  )
-	)
+FOR /F "delims=':' tokens=3" %%a in ('Find "Image File" %L%\Bin\Logs\MountInfo.txt 2^>NUL') do (set /a Count+=1
+																							    echo =Wim_!Count!_:%%a^> >> %L%\Bin\Logs\wiminfo.txt
+)
+:: İmaj yolu alınır
+set Count=0
+FOR /F "skip=2 delims=':' tokens=2" %%a in ('Find "Image File" %L%\Bin\Logs\MountInfo.txt 2^>NUL') do (
+	echo %%a | Findstr /i "?" > NUL 2>&1
+		if !errorlevel! EQU 0 (FOR /F "delims='\\?\' tokens=2" %%b in ('echo %%a') do (set /a Count+=1
+																					   set B=%%b
+																					   set B=!B: =!
+																					   Call :Powershell "(Get-Content '%L%\Bin\Logs\wiminfo.txt') | ForEach-Object { $_ -replace '=Wim_!Count!_:', '=Wim_!Count!_>!B!:' } | Set-Content '%L%\Bin\Logs\wiminfo.txt'")
+							  )
+		if !errorlevel! NEQ 0 (set /a Count+=1
+							   set B=%%a
+							   set B=!B: =!
+							   Call :Powershell "(Get-Content '%L%\Bin\Logs\wiminfo.txt') | ForEach-Object { $_ -replace '=Wim_!Count!_:', '=Wim_!Count!_>!B!:' } | Set-Content '%L%\Bin\Logs\wiminfo.txt'"
+							  )
 )
 set Count=0
 FOR /F "tokens=4" %%g in ('Findstr /C:"Image Index" %L%\Bin\Logs\MountInfo.txt 2^>NUL') do (
@@ -665,10 +690,19 @@ FOR /F "tokens=4" %%g in ('Findstr /C:"Image Index" %L%\Bin\Logs\MountInfo.txt 2
 )
 :: Menü bölümü
 cls&echo.&Call :LA 2 Y0013&echo %R%[35m !LA2! %R%[0m&echo.
+set Countt=0
+FOR /F %%a in ('Findstr /i "=Mount_" D:\Huseyin\0Dev\.Developer\EasyDism\Bin\Logs\wiminfo.txt') do (set /a Countt+=1)
 set Count=0
-FOR /F "delims=> tokens=2" %%g in ('Findstr /i "=Mount" %L%\Bin\Logs\wiminfo.txt 2^>NUL') do (
-	set /a Count+=1
-	echo  %R%[32m !Count!-%R%[36m %%g %R%[0m
+FOR /L %%z in (1,1,!Countt!) do ( 
+	FOR /F "delims=> tokens=2" %%g in ('Findstr /i "=Mount_%%z_" %L%\Bin\Logs\wiminfo.txt 2^>NUL') do (
+		FOR /F "delims=> tokens=2" %%k in ('Findstr /i "=Wim_%%z_" %L%\Bin\Logs\wiminfo.txt 2^>NUL') do (
+			FOR /F "delims=> tokens=2" %%j in ('Findstr /i "=Index_%%z_" %L%\Bin\Logs\wiminfo.txt 2^>NUL') do (
+				set /a Count+=1
+				echo  %R%[32m !Count!-%R%[36m %%g %R%[0m
+				echo  %R%[90m ►  %%k [%%j] %R%[0m
+			)
+		)
+	)
 )
 :: Mount dizini yoksa uyarı mesajı verir
 Findstr /i "=Mount_1_" %L%\Bin\Logs\wiminfo.txt > NUL 2>&1

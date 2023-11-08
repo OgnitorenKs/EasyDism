@@ -56,6 +56,7 @@ Y0025>In eject position>file available>
 Y0026>Loading regedit records>
 Y0027>Configuring initial boot processes after format>
 Y0028>Image is being cleaned up>
+Y0029>ESD compression in progress>
 ::███████████████████████████████████████████████████████████████████
 Error_0_>Warning>
 Error_1_>ERROR! Turkish character detected in folder/file path>

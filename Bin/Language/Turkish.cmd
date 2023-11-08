@@ -56,6 +56,7 @@ Y0025>Çıkarma konumunda>dosyası mevcut>
 Y0026>Regedit kayıtları yükleniyor>
 Y0027>Format sonrası ilk açılış işlemleri yapılandırılıyor>
 Y0028>Güncelleme artıkları temizleniyor>
+Y0029>ESD sıkıştırma işlemi yapılıyor>
 ::███████████████████████████████████████████████████████████████████
 Error_0_>UYARI>
 Error_1_>HATA! Klasör/Dosya yolunda Türkçe karakter tespit edildi>
