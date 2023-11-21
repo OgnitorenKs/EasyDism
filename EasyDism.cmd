@@ -691,7 +691,7 @@ FOR /F "tokens=4" %%g in ('Findstr /C:"Image Index" %L%\Bin\Logs\MountInfo.txt 2
 :: Menü bölümü
 cls&echo.&Call :LA 2 Y0013&echo %R%[35m !LA2! %R%[0m&echo.
 set Countt=0
-FOR /F %%a in ('Findstr /i "=Mount_" D:\Huseyin\0Dev\.Developer\EasyDism\Bin\Logs\wiminfo.txt') do (set /a Countt+=1)
+FOR /F %%a in ('Findstr /i "=Mount_" %L%\Bin\Logs\wiminfo.txt') do (set /a Countt+=1)
 set Count=0
 FOR /L %%z in (1,1,!Countt!) do ( 
 	FOR /F "delims=> tokens=2" %%g in ('Findstr /i "=Mount_%%z_" %L%\Bin\Logs\wiminfo.txt 2^>NUL') do (
