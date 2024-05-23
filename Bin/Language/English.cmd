@@ -14,8 +14,9 @@ Menu_9_>Install update>
 Menu_10_>Add batch script to first boot after format>
 Menu_11_>UnMount Image>
 Menu_12_>Prepare ISO>
-Menu_13_>Mount define path>
-Menu_14_>EasyDism change language>
+Menu_13_>Edit Windows Setup>
+Menu_14_>Mount define path>
+Menu_15_>EasyDism change language>
 ::███████████████████████████████████████████████████████████████████
 D0001>Process>
 D0002>Multiprocess>
@@ -27,6 +28,12 @@ D0007>Image folder path>
 D0008>Label name>
 D0009>ISO name>
 D0010>Overwrite the current file?>
+D0011>Lerup Launch Bar and programs installed?>
+D0012>Should Windows 11 Bypass records be integrated?>
+D0013>Should Setup area visuals be changed?>
+D0014>Install VMD drivers?>
+D0015>Should the Mount directory be collected?>
+D0016>Location of Lerup Launch Bar>
 ::███████████████████████████████████████████████████████████████████
 Y0001>Builder closes...>
 Y0002>Press any key for menu>
@@ -77,3 +84,8 @@ ZZ_2_>Running scripts>awaiting file>
 ZZ_3_>Loading regedit records>loading regedit file>
 ZZ_4_>Programs>Installing>
 ZZ_5_>Operations complete. System restarting.>
+::███████████████████████████████████████████████████████████████████
+SS_1_>Left>
+SS_2_>Top>
+SS_3_>Right>
+SS_4_>Bottom>

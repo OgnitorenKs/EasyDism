@@ -14,8 +14,9 @@ Menu_9_>Güncelleme yükle>
 Menu_10_>Format sonrası ilk açılışa batch script ekle>
 Menu_11_>İmaj topla [UnMount]>
 Menu_12_>ISO hazırla>
-Menu_13_>Mount yol tanımla>
-Menu_14_>EasyDism dil değiştirme>
+Menu_13_>Windows Setup düzenle>
+Menu_14_>Mount yol tanımla>
+Menu_15_>EasyDism dil değiştir>
 ::███████████████████████████████████████████████████████████████████
 D0001>İşlem>
 D0002>Çoklu İşlem>
@@ -27,6 +28,12 @@ D0007>İmaj klasör yolu>
 D0008>Etiket adı>
 D0009>ISO adı>
 D0010>Mevcut dosyanın üzerine yazılsın mı?>
+D0011>Lerup Launch Bar ve programlar yüklensin mi?>
+D0012>Windows 11 Bypass kayıtları entegre edilsin mi?>
+D0013>Setup alanı görselleri değiştirilsin mi?>
+D0014>VMD sürücüleri yüklensin mi?>
+D0015>Mount dizini toplansın mı?>
+D0016>Lerup Launch Bar konumu>
 ::███████████████████████████████████████████████████████████████████
 Y0001>Builder kapanıyor...>
 Y0002>Menü için herhangi bir tuşa basınız>
@@ -77,3 +84,8 @@ ZZ_2_>Scriptler çalıştırılıyor>dosyası bekleniyor>
 ZZ_3_>Regedit kayıtları yükleniyor>regedit dosyası yükleniyor>
 ZZ_4_>Programlar>yükleniyor>
 ZZ_5_>İşlemler tamamlandı. Sistem yeniden başlatılıyor.>
+::███████████████████████████████████████████████████████████████████
+SS_1_>Sol>
+SS_2_>Üst>
+SS_3_>Sağ>
+SS_4_>Alt>
