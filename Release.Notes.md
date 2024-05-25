@@ -4,8 +4,16 @@
 -   Mail: ognitorenks@gmail.com
 -   Site: [https://ognitorenks.blospot.com](https://ognitorenks.blospot.com)
 
+<details><B><summary> Versiyon 4.1 ► 25.05.2024</B></summary>
 
-<details><B><summary> Versiyon 4.0 ► 23.05.2024</B></summary>
+	• "OgnitorenKs_Reader" başlığında nizami görüntü için kodlar düzenlendi.
+	• "Hepsi bir arada Windows Hazırla [AIO]" bölümüne farklı mimari sürümlerin x86 üzerinde birleştirilmesiyle ilgili uyarı mesajı eklendi.
+		• Ayrıca tüm sürümlerin görüntülenmesi için Ana sürüm imajında "Sources" klasöründe "ei.cfg" dosyası eklemesi için yeni kodlar eklendi.
+	• Komut ekranı başlığına programın sürüm bilgisi eklendi.
+	• Dil dosyasında bazı düzenlemeler yapıldı.
+	• "Format sonrası batch script ekle" bölümünde mount kontrol komutu eklendi.
+
+</details><details><B><summary> Versiyon 4.0 ► 23.05.2024</B></summary>
 
 	• Genel olarak bazı kodlar revize edildi.
 	• Dosya konumunu belirten 'L' değişkeni 'Konum' olarak düzenlendi.

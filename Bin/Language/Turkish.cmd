@@ -64,19 +64,21 @@ Y0026>Regedit kayıtları yükleniyor>
 Y0027>Format sonrası ilk açılış işlemleri yapılandırılıyor>
 Y0028>Güncelleme artıkları temizleniyor>
 Y0029>ESD sıkıştırma işlemi yapılıyor>
+Y0030>x64 ve x86 sürümleri birleştirmek istediğinizde x86 sürümün üzerine ekleme yapınız>
 ::███████████████████████████████████████████████████████████████████
 Error_0_>UYARI>
-Error_1_>HATA! Klasör/Dosya yolunda Türkçe karakter tespit edildi>
-Error_2_>HATA! Klasör/Dosya yolunda boşluk tespit edildi>
-Error_3_>HATA! Builder yalnızca x64 sistemlerde çalışır>
-Error_4_>HATA! install.esd dosyasıyla işlem yapamazsınız>
-Error_5_>HATA! boot.wim dosyasıyla işlem yapamazsınız>
-Error_6_>HATA! ISO dosyasıyla işlem yapamazsınız. Klasöre çıkarıp yeniden deneyiniz>
-Error_7_>HATA! install.wim/esd bulunamadı>
-Error_8_>HATA! boot.wim bulunamadı>
-Error_9_>HATA! Mount klasörü dolu>
-Error_10_>HATA! Mount yolu hatalı>
-Error_11_>HATA! install.wim dosyasıyla işlem yapamazsınız>
+Error_1_>HATA ► Klasör/Dosya yolunda Türkçe karakter tespit edildi>
+Error_2_>HATA ► Klasör/Dosya yolunda boşluk tespit edildi>
+Error_3_>HATA ► EasyDism yalnızca x64 sistemlerde çalışır>
+Error_4_>HATA ► install.esd dosyasıyla işlem yapamazsınız>
+Error_5_>HATA ► boot.wim dosyasıyla işlem yapamazsınız>
+Error_6_>HATA ► ISO dosyasıyla işlem yapamazsınız. Klasöre çıkarıp yeniden deneyiniz>
+Error_7_>HATA ► install.wim/esd bulunamadı>
+Error_8_>HATA ► boot.wim bulunamadı>
+Error_9_>HATA ► Mount klasörü dolu>
+Error_10_>HATA ► Mount yolu hatalı>
+Error_11_>HATA ► install.wim dosyasıyla işlem yapamazsınız>
+Error_12_>HATA ► Öncelikle imaj tanımlayıp mount ediniz>
 ::███████████████████████████████████████████████████████████████████
 ZZ_0_>Kurulum sonrası işlemler yapılandırılıyor>
 ZZ_1_>Masaüstü dosyaları çıkartılıyor>

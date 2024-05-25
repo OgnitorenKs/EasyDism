@@ -19,7 +19,7 @@
 :OgnitorenKs.Builder
 echo off
 chcp 65001 > NUL 2>&1
-title  EasyDism │ OgnitorenKs
+title  EasyDism 4.1 │ OgnitorenKs
 setlocal enabledelayedexpansion
 cls
 
@@ -76,12 +76,16 @@ Dism /Get-Mountedwiminfo > %Konum%\Bin\Logs\MountInfo.txt
 FOR /F "delims=':' tokens=3" %%a in ('Find "Mount Dir" %Konum%\Bin\Logs\MountInfo.txt 2^>NUL') do (
     FOR /F "skip=2 delims=':' tokens=2" %%b in ('Find "Mount Dir" %Konum%\Bin\Logs\MountInfo.txt 2^>NUL') do (
         echo %%b | Findstr /i "?" > NUL 2>&1
-            if !errorlevel! EQU 0 (FOR /F "delims='\\?\' tokens=2" %%c in ('echo %%b ^>NUL') do (set C=%%c
-                                                                                                 set C=!C:~1!
-                                                                                                 Dism /Remount-Image /MountDir:"!C!:%%a" > NUL 2>&1))
+            if !errorlevel! EQU 0 (FOR /F "delims='\\?\' tokens=2" %%c in ('echo %%b ^>NUL') do (
+			                           set C=%%c
+			                           set C=!C:~1!
+			                           Dism /Remount-Image /MountDir:"!C!:%%a" > NUL 2>&1
+									  )
+								  )
             if !errorlevel! NEQ 0 (set B=%%b
                                    set B=!B:~1!
-                                   Dism /Remount-Image /MountDir:"!B!:%%a" > NUL 2>&1)
+                                   Dism /Remount-Image /MountDir:"!B!:%%a" > NUL 2>&1
+								  )
     )
 )
 
@@ -353,8 +357,9 @@ REM -------------------------------------------------------------
 REM Çerçeve ayarını yapar
 mode con cols=100 lines=25
 REM Başlık mesajını çağırır
-Call :Dil A 2 Menu_5_&echo %R%[91m !LA2! %R%[0m
-echo.&Call :Dil A 2 Y0007&echo %R%[90m !LA2! %R%[0m
+Call :Dil A 2 Menu_5_&echo %R%[91m► !LA2! %R%[0m
+Call :Dil A 2 Y0030&echo %R%[90m• !LA2! %R%[0m
+echo.&Call :Dil A 2 Y0007&echo %R%[90m  !LA2! %R%[0m
 REM İmaj yolunu alması için ilgili başlığı çağırıyoruz.
 Call :Install_Road
 set BaseWim=!MainWim!
@@ -367,7 +372,15 @@ FOR %%a in (!F_Error!) do (
     )
 )
 if !Error! EQU X (goto :eof)
-echo.&Call :Dil A 2 Y0008&echo %R%[90m !LA2! %R%[0m
+REM Kurulumda ISO içerisinde yer alan tüm sürümlerin görünmesi için ei.cfg dosyası ekleniyor.
+(
+echo [Channel]
+echo Retail
+echo.
+echo [VL]
+echo 0
+) > %WimFile%\sources\ei.cfg
+echo.&Call :Dil A 2 Y0008&echo %R%[90m  !LA2! %R%[0m
 REM WimRoad_3 bölümünden wim yolunu alıyoruz.
 Call :Install_Road
 set AddWim=!MainWim!
@@ -393,7 +406,7 @@ FOR %%z in (Mode1 Mode2) do (set %%z=)
 mode con cols=130 lines=!Mode!
 REM Wim dosya içeriğini okumak için OgnitorenKs.Reader bölümüne değerleri gönderiyorum.
 Call :Dil A 2 Y0007&Call :OgnitorenKs.Reader "!MainWim!" REM echo "!LA2!" REM REM REM
-Call :Dil A 2 Y0008&Call :OgnitorenKs.Reader "%AddWim%" REM REM REM echo "!LA2!" echo
+Call :Dil A 2 Y0008&Call :OgnitorenKs.Reader "!AddWim!" REM REM REM echo "!LA2!" echo
 REM Eklenecek olan sürümleri burada kullanıcıdan seçmesini istiyoruz.
 Call :Dil A 2 D0002&set /p index=%R%[92m  !LA2!%R%[90m x,y%R%[92m : %R%[0m
 REM Menü tuşlaması için kontrol eder. İndex kontrol edince hata veriyordu. Findstr ile aratmak zorunda kaldım.
@@ -403,11 +416,11 @@ REM Wim içeriğini okur, ekrana bilgi verip işlemi yapar.
 mode con cols=130 lines=30
 Call :Dil A 2 Y0009
 FOR %%a in (%index%) do (
-    FOR /F "tokens=3" %%b IN ('Dism /Get-WimInfo /WimFile:%AddWim% /Index:%%a ^| FIND "Architecture"') do (
-        FOR /F "tokens=2 delims=:" %%c IN ('Dism /Get-WimInfo /WimFile:%AddWim% /Index:%%a ^| FIND "Name"') do (
+    FOR /F "tokens=3" %%b IN ('Dism /Get-WimInfo /WimFile:!AddWim! /Index:%%a ^| FIND "Architecture"') do (
+        FOR /F "tokens=2 delims=:" %%c IN ('Dism /Get-WimInfo /WimFile:!AddWim! /Index:%%a ^| FIND "Name"') do (
             FOR /F "tokens=*" %%d in ('echo %%c') do (
                 Call :Print_For "%%a" "%%d %%b"
-                Dism /Export-Image /SourceImageFile:%AddWim% /SourceIndex:%%a /DestinationImageFile:!MainWim! /Compress:max /CheckIntegrity
+                Dism /Export-Image /SourceImageFile:!AddWim! /SourceIndex:%%a /DestinationImageFile:!MainWim! /Compress:max /CheckIntegrity
             )
         )
     )
@@ -472,7 +485,7 @@ REM -------------------------------------------------------------
 :Mount_Driver_Install
 mode con cols=130 lines=40
 Call :Mount_Check
-    if !Hata! EQU 1 (Call :Error_Window 10&goto :eof)
+    if !Hata! EQU 1 (Call :Error_Window 12&goto :eof)
 Call :Dil A 2 Y0012&echo.&echo %R%[32m !LA2!... %R%[0m
 Dism /Image:%Mount% /Add-Driver /Driver:%Konum%\Driver /Recurse
 goto :eof
@@ -481,7 +494,7 @@ REM -------------------------------------------------------------
 :Mount_Regedit_Install
 mode con cols=100 lines=25
 Call :Mount_Check
-    if !Hata! EQU 1 (Call :Error_Window 10&goto :eof)
+    if !Hata! EQU 1 (Call :Error_Window 12&goto :eof)
 dir /b %Konum%\Regedit\*.reg > NUL 2>&1
     if !errorlevel! NEQ 0 (set Error=X&goto :eof)
 Call :Dil A 2 Y0026&echo.&echo %R%[32m !LA2! %R%[0m
@@ -530,7 +543,7 @@ REM -------------------------------------------------------------
 mode con cols=130 lines=40
 set Error=NT
 Call :Mount_Check
-    if !Hata! EQU 1 (Call :Error_Window 10&goto :eof)
+    if !Hata! EQU 1 (Call :Error_Window 12&goto :eof)
 cls&Call :Dil A 2 Y0021&echo %R%[92m !LA2! %R%[0m
 FOR /F %%a in ('dir /b %Konum%\Update\*.* 2^>NUL') do (
     Dism /Image:%Mount% /Add-Package /Packagepath=%Konum%\Update\%%a
@@ -981,16 +994,17 @@ FOR /F "tokens=3" %%a IN ('Dism /Get-WimInfo /WimFile:%~1 ^| Find "Index"') DO (
                 FOR /F "tokens=4" %%d in ('Dism /Get-WimInfo /WimFile:%~1  /Index:%%a ^| Find "Build"') do (
                     FOR /F "tokens=1" %%e in ('Dism /Get-WimInfo /WimFile:%~1  /Index:%%a ^| findstr /i Default') do (
                         FOR /F "tokens=2 delims=':'" %%f in ('Dism /Get-WimInfo /WimFile:%~1  /Index:%%a ^| findstr /i Name') do (
-                            FOR /F "tokens=2 delims='-',':' " %%g in ('Dism /Get-WimInfo /WimFile:%~1  /Index:%%a ^| findstr /i Modified') do (
+                            FOR /F "tokens=2 delims='-',':' " %%g in ('Dism /Get-WimInfo /WimFile:%~1 /Index:%%a ^| findstr /i Modified') do (
                                 set Huseyin=%%g
                                 FOR /F "delims=. tokens=1" %%a in ('echo %%g') do (if %%a LSS 10 (set Huseyin=0%%g))
-                                Call :Uzunluk 1 %%c
+                                Call :Uzunluk 1 %%c%%d
                                 if %%a LSS 10 (set Marty= %%a)
                                 if %%a GEQ 10 (set Marty=%%a)
-                                if !Uzunluk1! EQU 4 (set Ogni= %%c)
-                                if !Uzunluk1! EQU 5 (set Ogni=%%c)
+                                if !Uzunluk1! EQU 8 (set Ogni= %%c.%%d)
+                                if !Uzunluk1! EQU 9 (set Ogni=%%c.%%d)
+                                if !Uzunluk1! EQU 10 (set Ogni=%%c.%%d)
                                     echo  %R%[90m├─────┼──────┼────────────┼───────┼────────────┼───────────────────────────────────────────────────────────────────────────────┤%R%[0m
-                                    echo   %R%[92m !Marty!%R%[0m  ► %R%[33m %%b  %R%[36m !Ogni!.%%d  %R%[33m %%e  %R%[36m !Huseyin!  %R%[37m %%f%R%[0m
+                                    echo   %R%[92m !Marty!%R%[0m  ► %R%[33m %%b  %R%[36m !Ogni!  %R%[33m %%e  %R%[36m !Huseyin!  %R%[37m %%f%R%[0m
                                     )
                                 )
                             )
@@ -1151,6 +1165,8 @@ goto :eof
 
 REM ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 :AfterSetup
+Call :Mount_Check
+    if !Hata! EQU 1 (Call :Error_Window 12&goto :eof)
 Call :Dil A 2 Y0027&cls&echo.&echo %R%[92m !LA2! %R%[0m
 RD /S /Q "%Mount%\EasyDism_OgnitorenKs" > NUL 2>&1
 MD "%Mount%\EasyDism_OgnitorenKs\Setup" > NUL 2>&1

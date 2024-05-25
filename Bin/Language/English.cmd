@@ -64,19 +64,21 @@ Y0026>Loading regedit records>
 Y0027>Configuring initial boot processes after format>
 Y0028>Image is being cleaned up>
 Y0029>ESD compression in progress>
+Y0030>When you want to combine x64 and x86 versions, overwrite the x86 version>
 ::███████████████████████████████████████████████████████████████████
 Error_0_>Warning>
-Error_1_>ERROR! Turkish character detected in folder/file path>
-Error_2_>ERROR! Space detected in folder/file path>
-Error_3_>ERROR! Builder only works on x64 systems>
-Error_4_>ERROR! You cannot operate with install.esd>
-Error_5_>ERROR! You cannot operate with the boot.wim file>
-Error_6_>ERROR! You cannot operate with the ISO file. Unzip and try again>
-Error_7_>ERROR! install.wim/esd not found>
-Error_8_>ERROR! boot.wim not found>
-Error_9_>ERROR! Mount folder full>
-Error_10_>ERROR! Mount road is faulty>
-Error_11_>ERROR! You cannot work with the install.wim file>
+Error_1_>ERROR ► Turkish character detected in folder/file path>
+Error_2_>ERROR ► Space detected in folder/file path>
+Error_3_>ERROR ► EasyDism only works on x64 systems>
+Error_4_>ERROR ► You cannot operate with install.esd>
+Error_5_>ERROR ► You cannot operate with the boot.wim file>
+Error_6_>ERROR ► You cannot operate with the ISO file. Unzip and try again>
+Error_7_>ERROR ► install.wim/esd not found>
+Error_8_>ERROR ► boot.wim not found>
+Error_9_>ERROR ► Mount folder full>
+Error_10_>ERROR ► Mount road is faulty>
+Error_11_>ERROR ► You cannot work with the install.wim file>
+Error_12_>ERROR ► First define and mount the image>
 ::███████████████████████████████████████████████████████████████████
 ZZ_0_>Configuring post-installation processes>
 ZZ_1_>Extracting desktop files>

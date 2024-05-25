@@ -1,0 +1,10 @@
+
+Deployment Image Servicing and Management tool
+Version: 10.0.22621.2792
+
+Mounted images:
+
+
+No mounted images found.
+
+The operation completed successfully.
