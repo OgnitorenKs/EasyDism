@@ -4,6 +4,12 @@
 -   Mail: ognitorenks@gmail.com
 -   Site: [https://ognitorenks.blospot.com](https://ognitorenks.blospot.com)
 
+
+<details><B><summary> Versiyon 4.2 ► 19.06.2024 </B></summary>
+
+	• İmaj mount işlemi sonrası test için ekleyip unuttuğum 'pause' komutu kaldırıldı.
+	• "Format sonrası ilk açılışa batch script ekle" bölümündeki tüm hatalar giderildi. Sorunsuz bir şekilde çalışması sağlandı.
+
 <details><B><summary> Versiyon 4.1 ► 25.05.2024</B></summary>
 
 	• "OgnitorenKs_Reader" başlığında nizami görüntü için kodlar düzenlendi.
